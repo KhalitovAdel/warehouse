@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Create profile should profile create and receive correct jwt 1`] = `
+Object {
+  "companyId": Any<Number>,
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "sub": Any<Number>,
+}
+`;
+
+exports[`Auth Create profile should profile create with correct jwt 1`] = `
+Object {
+  "companyId": Any<Number>,
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "sub": Any<Number>,
+}
+`;
+
+exports[`Auth Login profile should profile login and receive correct jwt 1`] = `
+Object {
+  "companyId": Any<Number>,
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "sub": Any<Number>,
+}
+`;
+
+exports[`Auth Login profile should profile login with correct jwt 1`] = `
+Object {
+  "companyId": Any<Number>,
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "sub": Any<Number>,
+}
+`;

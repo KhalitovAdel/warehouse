@@ -1,5 +1,4 @@
 {
-  "exclude": ["config"],
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -10,11 +9,13 @@
     "target": "es2017",
     "sourceMap": true,
     "strict": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "allowJs": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"]
+    }
   }
 }

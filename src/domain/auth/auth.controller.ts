@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Headers, HttpCode, HttpStatus, Inject, Post, UseInterceptors } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
+import { Body, Controller, Get, Headers, HttpCode, HttpStatus, Post, UseInterceptors } from '@nestjs/common';
 
 import { Route } from '../../@enum/route.enum';
 import { ContextInterceptor } from '../../context/context.interceptor';
@@ -8,7 +7,7 @@ import { CreateProfileDto } from './dto/auth.dto';
 
 @Controller(Route.AUTH)
 export class AuthController {
-  constructor(protected readonly service: AuthService, @Inject(REQUEST) request: any) {}
+  constructor(protected readonly service: AuthService) {}
 
   protected getLoginPasswordFromBasic(token: string): { email: string; password: string } {
     const decrypted = Buffer.from(token.split(' ')[1], 'base64').toString();

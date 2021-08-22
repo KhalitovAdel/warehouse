@@ -7,10 +7,8 @@ import { CreatePriceDto, UpdatePriceDto } from './dto/price.dto';
 import { PriceEntity } from './price.entity';
 
 @Injectable()
-export class PriceDatabase extends DatabaseDefault<PriceEntity, CreatePriceDto, UpdatePriceDto> {
-  constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION]) protected readonly sessionConnection: ISessionConnection,
-  ) {
+export class PriceDatabase extends DatabaseDefault<CreatePriceDto, UpdatePriceDto, PriceEntity> {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly sessionConnection: ISessionConnection) {
     super(PriceEntity, sessionConnection, 'id');
   }
 }

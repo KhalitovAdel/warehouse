@@ -1,21 +1,53 @@
-ARG NODE_VERSION=10.18.0
+ARG ENDPOINT_DATABASE
+ARG NODE_IMAGE_VERSION=14-alpine
+ARG APP_PATH=.
 
-FROM node:$NODE_VERSION-alpine as install_dev_dependency
-COPY package*.json /tmp/
-RUN cd /tmp && npm install
+FROM node:${NODE_IMAGE_VERSION} as install_dependency
+ARG APP_PATH
+WORKDIR /usr/src/app
+RUN apk add --no-cache --virtual .gyp python make g++ git
+COPY $APP_PATH/package*.json ./
+COPY $APP_PATH/yarn.lock ./yarn.lock
+RUN --mount=type=cache,target=/root/.cache/yarn yarn install --frozen-lockfile
 
-FROM node:$NODE_VERSION-alpine as building
-WORKDIR /app
-COPY --from=install_dev_dependency /tmp .
-COPY . .
-RUN npm run build
+FROM install_dependency as development
+ARG APP_PATH
+WORKDIR /usr/src/app
+COPY $APP_PATH/ ./
+COPY ./tsconfig.json /usr/src/tsconfig.json
+EXPOSE 8080
+CMD [ "npm", "start" ]
 
-FROM node:$NODE_VERSION-alpine as production
-WORKDIR /app
-COPY package*.json ./
-RUN npm install -P
-COPY .env* ./
-COPY config ./config
-COPY --from=building /app/.next ./.next
-COPY --from=building /app/dist ./dist
-ENTRYPOINT ["npm", "run", "start:prod"]
+#FROM install_dependency as check_lint
+#ARG APP_PATH
+#WORKDIR /usr/src/app
+#COPY $APP_PATH/ ./
+#RUN npm run lint:check
+
+#FROM install_dependency as migrate_database
+#ARG APP_PATH
+#ARG ENDPOINT_DATABASE
+#ENV POSTGRES_CONNECTION_URL=$ENDPOINT_DATABASE
+#WORKDIR /usr/src/app
+#COPY $APP_PATH/ ./
+#COPY ./tsconfig.json /usr/src/tsconfig.json
+#RUN npm run migrate:latest
+
+FROM install_dependency as build
+ARG APP_PATH
+WORKDIR /usr/src/app
+COPY $APP_PATH/ ./
+COPY ./tsconfig.json /usr/src/tsconfig.json
+RUN yarn build
+
+FROM node:${NODE_IMAGE_VERSION} as make_app
+ARG APP_PATH
+WORKDIR /usr/src/app
+RUN apk add --no-cache --virtual .gyp python make g++
+COPY --from=build /usr/src/app/dist ./dist
+COPY ./tsconfig.json /usr/src/tsconfig.json
+COPY $APP_PATH/package*.json ./
+COPY $APP_PATH/yarn.lock ./yarn.lock
+RUN --mount=type=cache,target=/root/.cache/yarn yarn install --prod --frozen-lockfile
+EXPOSE 8080
+CMD ["yarn", "start:prod"]

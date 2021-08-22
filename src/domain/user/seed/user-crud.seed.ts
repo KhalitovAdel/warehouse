@@ -12,7 +12,7 @@ import { createUser } from './user.seed';
 @Injectable()
 export class UserCrudSeed extends DatabaseDefault<Partial<CreateUserDto>, UpdateUserDto, UserEntity> {
   constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_SINGLETON]) protected readonly session: EntityManager,
+    @Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly session: EntityManager,
     @Inject(UserPasswordCrudSeed) protected readonly userPasswordCrud: UserPasswordCrudSeed,
     @Inject(CompanyCrudSeed) protected readonly companyCrudSeed: CompanyCrudSeed,
   ) {

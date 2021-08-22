@@ -6,9 +6,9 @@ import { DatabaseDefaultEntity } from '../../database/database.default.entity';
 @Entity()
 export class ManufacturerEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsString()
   @Column({ nullable: false })
-  name: string;
+  name!: string;
 }

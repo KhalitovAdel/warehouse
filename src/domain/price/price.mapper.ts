@@ -6,7 +6,7 @@ import { PriceDatabase } from './price.database';
 import { PriceEntity } from './price.entity';
 
 @Injectable()
-export class PriceMapper extends CrudMapperDefault<PriceEntity, CreatePriceDto, UpdatePriceDto, 'id'> {
+export class PriceMapper extends CrudMapperDefault<CreatePriceDto, UpdatePriceDto, PriceEntity, 'id'> {
   constructor(@Inject(PriceDatabase) protected readonly database: PriceDatabase) {
     super(database);
   }

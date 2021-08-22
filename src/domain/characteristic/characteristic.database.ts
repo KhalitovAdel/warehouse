@@ -8,13 +8,11 @@ import { CharacteristicCreateDto, CharacteristicUpdateDto } from './dto/characte
 
 @Injectable()
 export class CharacteristicDatabase extends DatabaseDefault<
-  CharacteristicEntity,
   CharacteristicCreateDto,
-  CharacteristicUpdateDto
+  CharacteristicUpdateDto,
+  CharacteristicEntity
 > {
-  constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION]) protected readonly sessionConnection: ISessionConnection,
-  ) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly sessionConnection: ISessionConnection) {
     super(CharacteristicEntity, sessionConnection, 'id');
   }
 }

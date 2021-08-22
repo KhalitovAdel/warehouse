@@ -1,4 +1,6 @@
 export enum ErrorEnum {
+  UNAUTHORIZED,
+
   UNPROCESSED,
   NOT_NULL_EXPECTED,
   INVALID_INPUT,

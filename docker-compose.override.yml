@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  shop:
+    build:
+      target: development
+    ports:
+      - '3000:3000'
+  db:
+    image: postgres:alpine
+    ports:
+      - '5432:5432'

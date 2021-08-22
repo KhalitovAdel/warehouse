@@ -5,12 +5,12 @@ import { CompanyEntity } from '../company/company.entity';
 
 export class StockEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ManyToOne(() => CompanyEntity)
   @Column({ nullable: false })
-  companyId: number;
+  companyId!: number;
 
   @Column()
-  address: string;
+  address!: string;
 }

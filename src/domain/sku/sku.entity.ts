@@ -8,18 +8,18 @@ import { PriceEntity } from '../price/price.entity';
 @Entity()
 export class SkuEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @OneToMany(() => CharacteristicEntity, (characteristic) => characteristic.skuId)
   characteristic?: CharacteristicEntity[];
 
   @OneToMany(() => PriceEntity, (characteristic) => characteristic.skuId)
-  price: PriceEntity;
+  price!: PriceEntity;
 
   @Column({ nullable: false })
-  goodId: number;
+  goodId!: number;
 
   @ManyToOne(() => GoodEntity)
   @JoinColumn({ referencedColumnName: 'goodId' })
-  good: GoodEntity;
+  good!: GoodEntity;
 }

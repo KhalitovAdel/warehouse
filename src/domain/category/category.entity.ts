@@ -6,14 +6,14 @@ import { DatabaseDefaultEntity } from '../../database/database.default.entity';
 @Entity()
 export class CategoryEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsString()
   @Column({ nullable: false })
-  name: string;
+  name!: string;
 
   @IsNumber()
   @OneToOne(() => CategoryEntity)
   @Column()
-  parent: number;
+  parent!: number;
 }

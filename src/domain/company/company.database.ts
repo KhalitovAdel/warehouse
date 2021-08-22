@@ -8,9 +8,7 @@ import { CreateCompanyDto, UpdateCompanyDto } from './dto/company.dto';
 
 @Injectable()
 export class CompanyDatabase extends DatabaseDefault<CreateCompanyDto, UpdateCompanyDto, CompanyEntity> {
-  constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION]) protected readonly sessionConnection: ISessionConnection,
-  ) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly sessionConnection: ISessionConnection) {
     super(CompanyEntity, sessionConnection, 'id');
   }
 }

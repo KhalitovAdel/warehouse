@@ -12,7 +12,7 @@ export class UserPasswordCrudSeed extends DatabaseDefault<
   Pick<UserPasswordEntity, 'password'>,
   UserPasswordEntity
 > {
-  constructor(@Inject(NamespaceEnum[NamespaceEnum.SESSION_SINGLETON]) protected readonly session: EntityManager) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly session: EntityManager) {
     super(UserPasswordEntity, session, 'userId');
   }
 

@@ -45,12 +45,13 @@ export class CharacteristicBusiness {
   }
 
   update(params: CharacteristicUpdateDto & CharacteristicParamDto): CharacteristicUpdateDto {
-    const entity = this.characteristics.find((el) => el.id === params.id)!;
+    const entity = this.characteristics.find((el) => el.id === params.id);
     if (!entity) throw new ErrorDefault(ErrorEnum.NOT_NULL_EXPECTED);
 
     this.checkSkuExists();
-    this.checkTypes({ type: params.type || entity.type, title: params.title || '' }, entity.id);
+    this.checkTypes({ type: params.type || entity?.type, title: params.title || '' }, entity?.id);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...other } = params;
 
     return other;

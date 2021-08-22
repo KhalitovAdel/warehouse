@@ -11,11 +11,11 @@ import { SkuEntity } from '../sku/sku.entity';
 @Entity()
 export class GoodEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsString()
   @Column({ nullable: false })
-  name: string;
+  name!: string;
 
   @IsOptional()
   @IsNumber()
@@ -28,28 +28,28 @@ export class GoodEntity extends DatabaseDefaultEntity {
 
   @IsNumber()
   @Column({ nullable: false })
-  companyId: number;
+  companyId!: number;
 
   @ManyToOne(() => CompanyEntity)
   @JoinColumn({ referencedColumnName: 'companyId' })
-  company: CompanyEntity;
+  company!: CompanyEntity;
 
   @IsNumber()
   @Column({ nullable: false })
-  measureId: number;
+  measureId!: number;
 
   @ManyToOne(() => MeasureEntity)
   @JoinColumn({ referencedColumnName: 'measureId' })
-  measure: MeasureEntity;
+  measure!: MeasureEntity;
 
   @IsNumber()
   @Column({ nullable: false })
-  categoryId: number;
+  categoryId!: number;
 
   @ManyToOne(() => CategoryEntity)
   @JoinColumn({ referencedColumnName: 'categoryId' })
-  category: CategoryEntity;
+  category!: CategoryEntity;
 
   @OneToMany(() => SkuEntity, (sku) => sku.goodId)
-  sku: SkuEntity[];
+  sku!: SkuEntity[];
 }

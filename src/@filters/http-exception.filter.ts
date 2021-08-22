@@ -7,7 +7,7 @@ import { CodesHelper } from './http-exception.helper';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
+  catch(exception: HttpException | ErrorDefault, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 

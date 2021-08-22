@@ -6,15 +6,15 @@ import { SkuEntity } from '../sku/sku.entity';
 @Entity()
 export class PriceEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ nullable: false })
-  skuId: number;
+  skuId!: number;
 
   @ManyToOne(() => SkuEntity)
   @JoinColumn({ referencedColumnName: 'skuId' })
   sku?: SkuEntity;
 
   @Column({ nullable: false })
-  price: number;
+  price!: number;
 }

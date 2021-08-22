@@ -14,12 +14,12 @@ export class AuthCreateUser extends IntersectionType(
 export class CreateProfileDto {
   @ValidateNested()
   @Type(() => AuthCreateUser)
-  user: AuthCreateUser;
+  user!: AuthCreateUser;
 
   @ValidateIf(({ companyId }) => !companyId)
   @ValidateNested()
   @Type(() => CreateCompanyDto)
-  company: CreateCompanyDto;
+  company!: CreateCompanyDto;
 
   @ValidateIf(({ company }) => !company)
   @IsNumber()

@@ -7,11 +7,11 @@ import { UserEntity } from '../user/user.entity';
 @Entity()
 export class CompanyEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsString()
   @Column({ nullable: false })
-  name: string;
+  name!: string;
 
   @OneToMany(() => UserEntity, (user) => user.companyId)
   users?: UserEntity[];

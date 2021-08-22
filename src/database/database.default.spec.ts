@@ -10,10 +10,10 @@ import { DatabaseService } from './database.service';
 @Entity()
 class ExampleDatabase {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'text' })
-  name: string;
+  name!: string;
 }
 type ICreateExampleDatabase = Pick<ExampleDatabase, 'name'>;
 type IUpdateExampleDatabase = ICreateExampleDatabase;
@@ -78,7 +78,7 @@ describe('DataBase default services', () => {
       try {
         const result = await service.create({ name: 'test' });
         const key = 'name';
-        const existsDoc = await service.fetchOne(result.id, [key]);
+        const existsDoc = await service.fetchOne(result.id);
         expect(existsDoc).toBeDefined();
         expect(Object.keys(existsDoc || {}).length).toEqual(1);
         expect(Object.keys(existsDoc || {}).find((el) => el)).toEqual(key);

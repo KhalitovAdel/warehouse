@@ -8,9 +8,7 @@ import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserDatabase extends DatabaseDefault<CreateUserDto, UpdateUserDto, UserEntity> {
-  constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION]) protected readonly sessionConnection: ISessionConnection,
-  ) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly sessionConnection: ISessionConnection) {
     super(UserEntity, sessionConnection, 'id');
   }
 }

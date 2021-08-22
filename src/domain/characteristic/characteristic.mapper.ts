@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { diff } from 'deep-object-diff';
 
+// import { diff } from 'deep-object-diff';
 import { CrudMapperDefault } from '../../crud/crud.mapper';
 import { CharacteristicBusiness } from './characteristic.business';
 import { CharacteristicDatabase } from './characteristic.database';
@@ -9,9 +9,9 @@ import { CharacteristicCreateDto, CharacteristicUpdateDto } from './dto/characte
 
 @Injectable()
 export class CharacteristicMapper extends CrudMapperDefault<
-  CharacteristicEntity,
   CharacteristicCreateDto,
   CharacteristicUpdateDto,
+  CharacteristicEntity,
   'id'
 > {
   constructor(protected readonly database: CharacteristicDatabase) {
@@ -32,10 +32,10 @@ export class CharacteristicMapper extends CrudMapperDefault<
   }
 
   async update(id: CharacteristicEntity['id'], toUpdate: CharacteristicUpdateDto) {
-    const entity = await this.database.fetchOne(id);
-    const business = await this.fillBusiness(entity?.skuId);
-    const update = business.update({ id, ...diff(entity, toUpdate) });
+    // const entity = await this.database.fetchOne(id);
+    // const business = await this.fillBusiness(entity?.skuId);
+    // const update = business.update({ id, ...diff(entity, toUpdate) });
 
-    return super.update(id, update);
+    return super.update(id, toUpdate);
   }
 }

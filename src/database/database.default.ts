@@ -43,10 +43,10 @@ export class DatabaseDefault<CREATE, UPDATE, ENTITY extends CREATE | UPDATE>
     return this.entityManager.delete(this.entity, id);
   }
 
-  async fetchOne(query: number | FindOneOptions<ENTITY>, select?: (keyof ENTITY)[]): Promise<ENTITY | undefined> {
+  async fetchOne(query: number | FindOneOptions<ENTITY>): Promise<ENTITY | undefined> {
     if (!query) return;
 
-    return this.list({ take: 1, ...this.transformQuery(query), select }).then(({ data }) => data[0]);
+    return this.list({ take: 1, ...this.transformQuery(query) }).then(({ data }) => data[0]);
   }
 
   async list(options?: FindManyOptions<ENTITY>) {

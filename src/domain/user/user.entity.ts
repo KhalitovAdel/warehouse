@@ -7,27 +7,27 @@ import { CompanyEntity } from '../company/company.entity';
 @Entity()
 export class UserEntity extends DatabaseDefaultEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsString()
   @Column({ nullable: false })
-  firstName: string;
+  firstName!: string;
 
   @IsString()
   @Column({ nullable: false })
-  lastName: string;
+  lastName!: string;
 
   @IsString()
   @Column({ nullable: true })
-  middleName: string;
+  middleName!: string;
 
   @IsEmail()
   @Column({ unique: true, nullable: false })
-  email: string;
+  email!: string;
 
   @IsNumber()
   @Column({ nullable: false })
-  companyId: number;
+  companyId!: number;
 
   @ManyToOne(() => CompanyEntity)
   @JoinColumn({ referencedColumnName: 'id' })

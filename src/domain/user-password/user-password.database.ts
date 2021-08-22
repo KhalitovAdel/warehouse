@@ -11,9 +11,7 @@ export class UserPasswordDatabase extends DatabaseDefault<
   Pick<UserPasswordEntity, 'password'>,
   UserPasswordEntity
 > {
-  constructor(
-    @Inject(NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION]) protected readonly sessionConnection: ISessionConnection,
-  ) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly sessionConnection: ISessionConnection) {
     super(UserPasswordEntity, sessionConnection, 'userId');
   }
 }

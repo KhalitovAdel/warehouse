@@ -9,23 +9,23 @@ import { Characteristic } from './interface/characteristic.enum';
 export class CharacteristicEntity extends DatabaseDefaultEntity {
   @IsNumber()
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @IsNumber()
   @Column({ nullable: false })
-  skuId: number;
+  skuId!: number;
 
   @ManyToOne(() => SkuEntity)
   @JoinColumn({ referencedColumnName: 'skuId' })
-  sku: SkuEntity;
+  sku!: SkuEntity;
 
   @IsEnum(Object.values(Characteristic))
   @Column({ enum: Object.values(Characteristic), nullable: false })
-  type: Characteristic;
+  type!: Characteristic;
 
   @IsString()
   @Column({ nullable: false })
-  value: string;
+  value!: string;
 
   @ValidateIf(({ type }) => type === Characteristic.FREE)
   @IsString()

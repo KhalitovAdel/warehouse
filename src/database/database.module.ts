@@ -5,6 +5,7 @@ import { Connection, QueryRunner } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';
 
 import { NamespaceEnum } from '../@enum/namespace.enum';
+import { Context } from '../context/context';
 import { ContextModule } from '../context/context.module';
 import { ModuleUtil } from '../utils/module.util';
 import { DatabaseService } from './database.service';
@@ -36,7 +37,7 @@ const creteRunner = async (connection: Connection): Promise<QueryRunner> => {
       providers: [
         Transaction,
         {
-          provide: NamespaceEnum[NamespaceEnum.SESSION_SINGLETON],
+          provide: NamespaceEnum.SESSION_SINGLETON,
           useFactory: async (connection: Connection): Promise<EntityManager> => {
             const runner = await creteRunner(connection);
 
@@ -46,8 +47,8 @@ const creteRunner = async (connection: Connection): Promise<QueryRunner> => {
         },
         {
           scope: Scope.REQUEST,
-          provide: NamespaceEnum[NamespaceEnum.TRANSACTION_RUNNER],
-          useFactory: async (connection: Connection): Promise<QueryRunner | undefined> => {
+          provide: NamespaceEnum.TRANSACTION_RUNNER,
+          useFactory: async (connection: Connection): Promise<QueryRunner> => {
             const queryRunner = await creteRunner(connection);
             await queryRunner.startTransaction();
 
@@ -57,18 +58,24 @@ const creteRunner = async (connection: Connection): Promise<QueryRunner> => {
         },
         {
           scope: Scope.REQUEST,
-          provide: NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION],
-          useFactory: (sessionRunner: QueryRunner): EntityManager => {
-            return sessionRunner.manager;
+          provide: NamespaceEnum.DEFAULT_ENTITY_MANAGER,
+          useFactory: async (singletonRunner: EntityManager, transactionRunner: QueryRunner, context: Context) => {
+            return new Proxy(
+              {},
+              {
+                get(): EntityManager {
+                  if (context.isTransactionRequest) return transactionRunner.manager;
+                  transactionRunner?.release();
+
+                  return singletonRunner;
+                },
+              },
+            );
           },
-          inject: [NamespaceEnum[NamespaceEnum.TRANSACTION_RUNNER]],
+          inject: [NamespaceEnum.SESSION_SINGLETON, NamespaceEnum.TRANSACTION_RUNNER, Context],
         },
       ],
-      exports: [
-        Transaction,
-        NamespaceEnum[NamespaceEnum.SESSION_TRANSACTION],
-        NamespaceEnum[NamespaceEnum.SESSION_SINGLETON],
-      ],
+      exports: [Transaction, NamespaceEnum.DEFAULT_ENTITY_MANAGER],
     },
     {
       providers: [DatabaseService],

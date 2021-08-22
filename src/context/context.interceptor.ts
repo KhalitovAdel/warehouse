@@ -7,7 +7,7 @@ import { Context } from './context';
 
 @Injectable()
 export class ContextInterceptor implements NestInterceptor {
-  @Inject(Context) protected readonly context: Context;
+  @Inject(Context) protected readonly context!: Context;
 
   intercept(ctx: ExecutionContext, next: CallHandler): Observable<any> {
     const request: Request = ctx.switchToHttp().getRequest();

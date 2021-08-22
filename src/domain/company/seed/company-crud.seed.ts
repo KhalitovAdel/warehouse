@@ -9,7 +9,7 @@ import { createCompany } from './company.seed';
 
 @Injectable()
 export class CompanyCrudSeed extends DatabaseDefault<Partial<CreateCompanyDto>, UpdateCompanyDto, CompanyEntity> {
-  constructor(@Inject(NamespaceEnum[NamespaceEnum.SESSION_SINGLETON]) protected readonly session: EntityManager) {
+  constructor(@Inject(NamespaceEnum.DEFAULT_ENTITY_MANAGER) protected readonly session: EntityManager) {
     super(CompanyEntity, session, 'id');
   }
 

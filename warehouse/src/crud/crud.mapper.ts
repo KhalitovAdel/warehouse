@@ -10,15 +10,15 @@ export class CrudMapperDefault<CREATE, UPDATE, ENTITY extends CREATE | UPDATE, I
   }
 
   update(id: ENTITY[ID_KEY], toUpdate: UPDATE) {
-    return this.crud.updateOne((id as any) as number, toUpdate);
+    return this.crud.updateOne(id as any as number, toUpdate);
   }
 
   read(id: ENTITY[ID_KEY]) {
-    return this.crud.fetchOne((id as any) as number);
+    return this.crud.fetchOne(id as any as number);
   }
 
   delete(id: ENTITY[ID_KEY]) {
-    return this.crud.delete((id as any) as number);
+    return this.crud.delete(id as any as number);
   }
 
   protected async checkDuplicates(...uniques: Partial<ENTITY>[]) {

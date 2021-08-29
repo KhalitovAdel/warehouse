@@ -6,7 +6,8 @@ import { IClass } from '../interface/common.interface';
 import { IDatabaseDefault, ISessionConnection } from './interfaces/database.interface';
 
 export class DatabaseDefault<CREATE, UPDATE, ENTITY extends CREATE | UPDATE>
-  implements IDatabaseDefault<CREATE, UPDATE, ENTITY>, IDatabaseCRUD<CREATE, UPDATE, ENTITY> {
+  implements IDatabaseDefault<CREATE, UPDATE, ENTITY>, IDatabaseCRUD<CREATE, UPDATE, ENTITY>
+{
   constructor(
     protected readonly entity: IClass<ENTITY>,
     protected readonly entityManager: ISessionConnection,

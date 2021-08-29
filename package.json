@@ -6,7 +6,9 @@
     "reset:warehouse": "rimraf server/node_modules && yarn install --frozen-lockfile --cwd=warehouse",
     "reset:root": "rimraf node_modules && yarn install --frozen-lockfile",
     "reset": "yarn reset:root && yarn reset:warehouse",
-    "lint:check": "eslint \"**/*.{ts,js,tsx}\" --quiet",
+    "lint:check-ts-warehouse": "tsc --noemit --p warehouse/tsconfig.json",
+    "lint:check-eslint": "eslint \"**/*.{ts,js,tsx}\" --quiet",
+    "lint:check": "yarn lint:check-ts-warehouse && yarn lint:check-eslint",
     "lint:fix": "eslint \"**/*.{ts,js,tsx}\" --fix"
   },
   "devDependencies": {

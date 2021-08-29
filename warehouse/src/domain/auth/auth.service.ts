@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   protected decryptJwt(token: string): IJwtData | null {
-    return (this.jwtService.decode(token) as any) as IJwtData;
+    return this.jwtService.decode(token) as any as IJwtData;
   }
 
   protected encryptPassword(password: string) {

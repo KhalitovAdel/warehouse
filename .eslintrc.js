@@ -1,10 +1,12 @@
+const commonFiles = ['cfg.js', 'env.js'];
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'simple-import-sort', 'unused-imports'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'unused-imports'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -47,4 +49,10 @@ module.exports = {
       },
     ],
   },
+  overrides: [{
+    files: ['warehouse/**/*.ts', 'warehouse/**/*.js', ...commonFiles],
+    parserOptions: {
+      project: ['warehouse/tsconfig.json'], // Specify it only for TypeScript files
+    },
+  }]
 };

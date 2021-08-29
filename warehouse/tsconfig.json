@@ -2,7 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["../*"]
+    }
   },
-  "include": ["../env.js", "../cfg.js"]
+  "include": [ "../env.js", "../cfg.js", "./**/*.ts" , "./**/*.js" ]
 }
